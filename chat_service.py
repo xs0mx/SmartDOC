@@ -10,7 +10,7 @@ load_dotenv()
 
 class ChatService:
     def __init__(self):
-        self.client = OpenAI(api_key=os.getenv('sk-proj-iFLoG5VuiFt7s4qSqC-u7tLz-T-v4PGL18qegRnPyM1W6aX9FE9KRJQ2fRLIMTuobFMf67B22T3BlbkFJ6rnZ_rcEmEA3GHy-IKSxN3ya2dZ1jOmK0WtF8zF52jjHJLMrgkKOvAeKKdHSaQYFM5EOgyhnkA'))
+        self.client = OpenAI(api_key=os.getenv('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'))
 
     def analyze_severity(self, message, patient_context):
         """Analyze the severity of symptoms and generate a priority rating"""
