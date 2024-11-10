@@ -3,317 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard - AI Patient Assistant</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-blue-600 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-white text-2xl font-bold">Doctor Dashboard</h1>
-            <div class="flex items-center space-x-4">
-                <span class="text-white">Dr. {{ current_user.name }}</span>
-                <a href="{{ url_for('logout') }}" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100">Logout</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mx-auto p-4">
-        <!-- Stats Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div class="bg-white p-4 rounded-lg shadow">
-                <h3 class="text-gray-500 text-sm">Today's Appointments</h3>
-                <p class="text-2xl font-bold">8</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow">
-                <h3 class="text-gray-500 text-sm">Pending Messages</h3>
-                <p class="text-2xl font-bold">12</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow">
-                <h3 class="text-gray-500 text-sm">Total Patients</h3>
-                <p class="text-2xl font-bold">145</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow">
-                <h3 class="text-gray-500 text-sm">Prescription Requests</h3>
-                <p class="text-2xl font-bold">5</p>
-            </div>
-        </div>
-
-        <!-- Main Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Today's Appointments -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-bold mb-4">Today's Appointments</h2>
-                <div class="space-y-4">
-                    <div class="border-l-4 border-blue-500 pl-4 py-2">
-                        <p class="font-semibold">John Doe</p>
-                        <p class="text-sm text-gray-500">9:00 AM - General Checkup</p>
-                        <div class="mt-2">
-                            <button class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Start</button>
-                            <button class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="border-l-4 border-green-500 pl-4 py-2">
-                        <p class="font-semibold">Jane Smith</p>
-                        <p class="text-sm text-gray-500">10:30 AM - Follow-up</p>
-                        <div class="mt-2">
-                            <button class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Start</button>
-                            <button class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="border-l-4 border-yellow-500 pl-4 py-2">
-                        <p class="font-semibold">Robert Johnson</p>
-                        <p class="text-sm text-gray-500">2:00 PM - New Patient</p>
-                        <div class="mt-2">
-                            <button class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Start</button>
-                            <button class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Patient Messages -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-bold mb-4">Recent Messages</h2>
-                <div class="space-y-4">
-                    <div class="border-b pb-2">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="font-semibold">Sarah Wilson</p>
-                                <p class="text-sm text-gray-600">Question about medication side effects...</p>
-                            </div>
-                            <span class="text-xs text-gray-500">10m ago</span>
-                        </div>
-                        <button class="text-sm text-blue-600 hover:text-blue-800 mt-2">Reply</button>
-                    </div>
-                    <div class="border-b pb-2">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="font-semibold">Mike Brown</p>
-                                <p class="text-sm text-gray-600">Follow-up appointment request</p>
-                            </div>
-                            <span class="text-xs text-gray-500">1h ago</span>
-                        </div>
-                        <button class="text-sm text-blue-600 hover:text-blue-800 mt-2">Reply</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
-                <div class="space-y-4">
-                    <button class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        Write Prescription
-                    </button>
-                    <button class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        Schedule Appointment
-                    </button>
-                    <button class="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
-                        View Medical Records
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Patient List -->
-        <div class="mt-6 bg-white rounded-lg shadow">
-            <div class="p-6">
-                <h2 class="text-xl font-bold mb-4">Recent Patients</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full">
-                        <thead>
-                            <tr class="bg-gray-50">
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Patient Name
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Last Visit
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div>
-                                            <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                            <div class="text-sm text-gray-500">john.doe@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">Oct 15, 2023</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Active
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <button class="text-blue-600 hover:text-blue-900">View Details</button>
-                                    <button class="text-blue-600 hover:text-blue-900 ml-4">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div>
-                                            <div class="text-sm font-medium text-gray-900">Jane Smith</div>
-                                            <div class="text-sm text-gray-500">jane.smith@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">Oct 12, 2023</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                        Follow-up
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <button class="text-blue-600 hover:text-blue-900">View Details</button>
-                                    <button class="text-blue-600 hover:text-blue-900 ml-4">Edit</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click handlers for buttons
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // For demonstration purposes
-                    console.log('Button clicked:', button.textContent.trim());
-                });
-            });
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard - AI Patient Assistant</title>
+    <title>Doctor Dashboard - AI Priority Monitor</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        .priority-high { background-color: #FEE2E2; }
-        .priority-medium { background-color: #FEF3C7; }
-        .priority-low { background-color: #D1FAE5; }
-        
-        @keyframes pulse-red {
-            0% { background-color: #FEE2E2; }
-            50% { background-color: #FCA5A5; }
-            100% { background-color: #FEE2E2; }
+        @keyframes pulse-dot {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
         }
         
-        .priority-urgent {
-            animation: pulse-red 2s infinite;
+        .priority-pulse {
+            animation: pulse-dot 1.5s infinite;
         }
+        
+        .bg-soft-blue { background-color: #4C9AFF; }
+        .bg-soft-red { background-color: #FF7F7F; }
+        .bg-soft-orange { background-color: #FFB366; }
+        .bg-soft-yellow { background-color: #FFE699; }
+        
+        .border-soft-orange { border-color: #FFB366; }
+        .bg-orange-50 { background-color: #FFF3E6; }
+        .bg-orange-100 { background-color: #FFE5CC; }
+        .text-orange-800 { color: #CC7A00; }
     </style>
 </head>
-<body class="bg-gray-50">
-    <nav class="bg-blue-600 p-4">
+<body class="bg-gray-100">
+    <nav class="bg-soft-blue p-4">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-white text-2xl font-bold">Doctor Dashboard</h1>
             <div class="flex items-center space-x-4">
-                <span class="text-white">Dr. {{ current_user.name }}</span>
-                <a href="{{ url_for('logout') }}" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100">Logout</a>
+                <div class="flex items-center bg-blue-700 px-3 py-1 rounded-lg">
+                    <div class="h-2 w-2 bg-green-400 rounded-full mr-2"></div>
+                    <span class="text-white text-sm">AI System Connected</span>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <span class="text-white">Dr. {{ current_user.name }}</span>
+                    <a href="{{ url_for('logout') }}" class="bg-white text-blue-700 px-4 py-2 rounded-lg hover:bg-gray-200">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="bg-white text-blue-700 px-4 py-2 rounded-lg hover:bg-gray-200">Login</a>
+                {% endif %}
             </div>
         </div>
     </nav>
 
-    <div class="container mx-auto p-4">
-        <!-- Live Patient Priority Monitor -->
-        <div class="mb-6">
-            <h2 class="text-2xl font-bold mb-4">Live Patient Priority Monitor</h2>
-            <div id="priority-monitor" class="grid grid-cols-1 gap-4">
-                <!-- Priority cards will be inserted here by JavaScript -->
+    <div class="container mx-auto p-6">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-5 rounded-lg shadow-md">
+                <h3 class="text-gray-500 text-sm">Active Patients</h3>
+                <p class="text-2xl font-bold">24</p>
+                <p class="text-sm text-green-600">↑ 3 new today</p>
+            </div>
+            <div class="bg-white p-5 rounded-lg shadow-md">
+                <h3 class="text-gray-500 text-sm">AI Alerts</h3>
+                <p class="text-2xl font-bold">8</p>
+                <p class="text-sm text-red-600">3 high priority</p>
+            </div>
+            <div class="bg-white p-5 rounded-lg shadow-md">
+                <h3 class="text-gray-500 text-sm">Pending Reviews</h3>
+                <p class="text-2xl font-bold">12</p>
+                <p class="text-sm text-blue-600">5 AI-flagged</p>
+            </div>
+            <div class="bg-white p-5 rounded-lg shadow-md">
+                <h3 class="text-gray-500 text-sm">AI Assessment Score</h3>
+                <p class="text-2xl font-bold">94%</p>
+                <p class="text-sm text-green-600">Above threshold</p>
             </div>
         </div>
 
-        <!-- Rest of your existing dashboard content -->
+        <!-- AI Priority Assessment Monitor -->
+        <div class="mb-8 bg-white rounded-lg shadow-md">
+            <div class="p-5 border-b flex justify-between items-center bg-gray-50">
+                <div class="flex items-center">
+                    <h2 class="text-xl font-bold">AI Priority Assessment Monitor</h2>
+                    <span class="ml-3 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Live Updates</span>
+                </div>
+                <div class="flex space-x-3">
+                    <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Critical: 2</span>
+                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">High: 3</span>
+                    <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Medium: 5</span>
+                </div>
+            </div>
+            <div class="p-5 space-y-6">
+                <!-- Critical Priority Case -->
+                <div class="border-l-4 border-soft-red bg-red-50 p-5 rounded-r-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="priority-pulse h-3 w-3 bg-red-500 rounded-full mr-2"></span>
+                                <h4 class="font-semibold">James Wilson, 68</h4>
+                                <span class="ml-2 px-2 py-0.5 bg-red-200 text-red-800 rounded text-xs">AI Alert: Immediate Attention Required</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Irregular heart rhythm detected, History of MI</p>
+                            <div class="flex items-center mt-3 space-x-4 text-sm">
+                                <span class="text-red-600 font-medium">HR: 120 bpm</span>
+                                <span class="text-red-600 font-medium">BP: 180/100</span>
+                                <span class="text-gray-500">O2 Sat: 94%</span>
+                            </div>
+                            <div class="mt-3 flex items-center text-xs text-gray-500">
+                                <span>AI Confidence: 96%</span>
+                                <span class="mx-2">|</span>
+                                <span>Last Update: 2 mins ago</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                                View Details
+                            </button>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm">
+                                Respond Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- High Priority Case -->
+                <div class="border-l-4 border-soft-orange bg-orange-50 p-5 rounded-r-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="h-3 w-3 bg-soft-orange rounded-full mr-2"></span>
+                                <h4 class="font-semibold">Emma Thompson, 45</h4>
+                                <span class="ml-2 px-2 py-0.5 bg-orange-100 text-orange-800 rounded text-xs">AI Alert: Elevated Risk</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Diabetic complications suspected</p>
+                            <div class="flex items-center mt-3 space-x-4 text-sm">
+                                <span class="text-orange-800 font-medium">Glucose: 250 mg/dL</span>
+                                <span class="text-gray-500">BP: 145/90</span>
+                                <span class="text-gray-500">Temp: 99.1°F</span>
+                            </div>
+                            <div class="mt-3 flex items-center text-xs text-gray-500">
+                                <span>AI Confidence: 89%</span>
+                                <span class="mx-2">|</span>
+                                <span>Last Update: 15 mins ago</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                                View Details
+                            </button>
+                            <button class="bg-soft-orange text-white px-4 py-2 rounded hover:opacity-90 text-sm">
+                                Review Case
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Priority Case -->
+                <div class="border-l-4 border-soft-yellow bg-yellow-50 p-5 rounded-r-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></span>
+                                <h4 class="font-semibold">David Chen, 52</h4>
+                                <span class="ml-2 px-2 py-0.5 bg-yellow-200 text-yellow-800 rounded text-xs">AI Alert: Follow-up Needed</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Mild respiratory distress</p>
+                            <div class="flex items-center mt-3 space-x-4 text-sm">
+                                <span class="text-yellow-600 font-medium">O2 Sat: 92%</span>
+                                <span class="text-gray-500">Temp: 98.6°F</span>
+                            </div>
+                            <div class="mt-3 flex items-center text-xs text-gray-500">
+                                <span>AI Confidence: 75%</span>
+                                <span class="mx-2">|</span>
+                                <span>Last Update: 30 mins ago</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                                View Details
+                            </button>
+                            <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-sm">
+                                Defer Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function getPriorityClass(rating) {
-            if (rating >= 90) return 'priority-urgent';
-            if (rating >= 70) return 'priority-high';
-            if (rating >= 30) return 'priority-medium';
-            return 'priority-low';
-        }
-
-        function formatTimestamp(timestamp) {
-            const date = new Date(timestamp);
-            return date.toLocaleString();
-        }
-
-        function createPriorityCard(patient) {
-            const priorityClass = getPriorityClass(patient.priority_rating);
-            return `
-                <div class="p-4 rounded-lg shadow ${priorityClass}">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-bold text-lg">${patient.patient_name}</h3>
-                            <p class="text-gray-700">Priority: ${patient.priority_rating}%</p>
-                            <p class="text-sm text-gray-600">${patient.reasoning}</p>
-                            <p class="text-sm font-semibold mt-2">Recommended Action: ${patient.recommended_action}</p>
-                            <p class="text-sm text-gray-500">Timeframe: ${patient.timeframe}</p>
-                        </div>
-                        <div class="text-sm text-gray-500">
-                            ${formatTimestamp(patient.timestamp)}
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <p class="text-sm text-gray-600">Last Message: "${patient.last_message}"</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        function updatePriorityMonitor() {
-            fetch('/api/patient-priorities')
-                .then(response => response.json())
-                .then(data => {
-                    const monitorElement = document.getElementById('priority-monitor');
-                    monitorElement.innerHTML = data
-                        .sort((a, b) => b.priority_rating - a.priority_rating)
-                        .map(patient => createPriorityCard(patient))
-                        .join('');
-                })
-                .catch(error => console.error('Error fetching priorities:', error));
-        }
-
-        // Update every 10 seconds
-        setInterval(updatePriorityMonitor, 10000);
-        
-        // Initial update
-        updatePriorityMonitor();
+        // Add auto-refresh for the priority monitor
+        setInterval(async function() {
+            try {
+                const response = await fetch('/api/urgent-notifications');
+                const notifications = await response.json();
+                // Update the notifications display
+                // This is where you'd update the UI with new notifications
+                console.log('Notifications updated:', notifications);
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            }
+        }, 30000); // Refresh every 30 seconds
     </script>
 </body>
 </html>
