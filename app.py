@@ -1,10 +1,16 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from extensions import db, login_manager
-from models import User, ChatMessage, PatientDiagnosis, UrgentNotification  # Added UrgentNotification here
+from models import User, ChatMessage, PatientDiagnosis, UrgentNotification
 from chat_service import ChatService
-import asyncio
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
+# Rest of the code remains the same
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-this'  # Change this in production
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///patients.db'
